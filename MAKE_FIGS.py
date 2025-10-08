@@ -277,9 +277,13 @@ if FIGURE1:
 	plotvlines = [(xw, ysw, ynw, 'blue', lw), (xe, yse, yne, 'blue', lw)]
 	
 	r2 = 1.e6
-	dxArrow = 0.8e5; dxArrowDiag = 5.67e4
+	dxArrow = 1e5; dxArrowDiag = 0.8e5
 	GetzArrow = [.65e6+r2, 1.50e6, dxArrowDiag, -dxArrowDiag, 'r']
-	arrows = [[1.58e6+r2, 8.2e5, dxArrow, 0, 'r'], [.93e6+r2, 1.28e6, -dxArrowDiag, dxArrowDiag, 'b'], [1.18e6+r2, 1.55e6, dxArrow, 0, 'b']]
+	arrows = [[1.58e6+r2, 8.2e5, dxArrow, 0, 'r'], \
+	[.95e6+r2, 1.23e6, -dxArrowDiag, dxArrowDiag, 'b'], \
+	[1.10e6+r2, 1.55e6, dxArrow, 0, 'b'], \
+	[2.3e6+r2, 1.55e6, 0, 1.2*dxArrow, 'b']]
+
 
 	u = [u[::d, ::d], uw[::d, ::d]]
 	v = [v[::d, ::d], vw[::d, ::d]]
@@ -338,8 +342,19 @@ if FIGURE1:
 
 	#==
 
-	pt.quiver1byNBasemap(u, v, Xd, Yd, lat_0, lon_0, contourf=contourf, contourfNlevels=contourfNlevels, cbarTicks=cbarTicks, X=XX, Y=YY, mesh=False, isf=isf, contour=contour, contourLevels=contourLevels, cc=cc, lw=lw, contour2=contour2, contourLevels2=contourLevels2, cc2=cc2, lw2=lw2, contour3=contour3, contourLevels3=contourLevels3, cc3=cc3, lw3=lw3, land=land, titles=titles, fstitle=fstitle, cmap=cmapMean, vmin=vmin, vmax=vmax, parallels=paras, meridians=merids, gridLinesWidth=gridLinesWidth, text_data=text_data,  grid=False, scale=scale, qs=qs, qunits=qunits, extend=['both']*2, width=width, headwidth=headwidth, headlength=headlength, headaxislength=headaxislength, qcolor=qcolor, qlabelx=qlabelx, qlabely=qlabely, figsize=(9.5,11), save=True, outpath='', outname='Figure_1.png', show=True, dpi=200, AntarcticInsetData=[True,None], arrows=arrows, plotvlines=plotvlines, maskColour='0.8')
-
+        pt.quiver1byNBasemap(u, v, Xd, Yd, lat_0, lon_0, contourf=contourf, contourfNlevels=contourfNlevels, \
+		cbarTicks=cbarTicks, X=XX, Y=YY, mesh=False, isf=isf, \
+		contour=contour, contourLevels=contourLevels, cc=cc, lw=lw, \
+		contour2=contour2, contourLevels2=contourLevels2, cc2=cc2, lw2=lw2, \
+		contour3=contour3, contourLevels3=contourLevels3, cc3=cc3, lw3=lw3, \
+		land=land, titles=titles, fstitle=fstitle, cmap=[cmapMean,'PRGn_r'], vmin=vmin, vmax=vmax, \
+		parallels=paras, meridians=merids, gridLinesWidth=gridLinesWidth, \
+		text_data=text_data,  grid=False, scale=scale, qs=qs, qunits=qunits, \
+		extend=['both']*2, width=width, headwidth=headwidth, headlength=headlength, headaxislength=headaxislength, \
+		qcolor=qcolor, qlabelx=qlabelx, qlabely=qlabely, figsize=(9.5,11), save=True, \
+		outpath='', outname='Figure_1.png', show=True, dpi=200, AntarcticInsetData=[True,None], \ 
+		arrows=arrows, plotvlines=plotvlines, maskColour='0.8')
+	
 	quit()
 
 #==
@@ -1211,7 +1226,7 @@ if FIGURE4:
 	spleft=spleft, spright=spright, sptop=sptop, spbottom=spbottom, \
 	wspace=wspace, hspace=hspace, isf=iceC, \
 	suptitle=suptitle, insetTitle=insetTitle, insetTitleX=insetTitleX, \
-	cmap='coolwarm', contourfNlevels=contourfNlevels, \
+	cmap='PGRn_r', contourfNlevels=contourfNlevels, \
 	xticks=xticks, yticks=yticks, \
 	xticklabels=xticklabels, yticklabels=yticklabels, \
 	contourLevels=contourLevels, contour=contour, \
