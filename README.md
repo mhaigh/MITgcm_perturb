@@ -6,4 +6,4 @@ Scripts are those used for the research paper "Wind-driven coastal polynya varia
 
 # How to run
 
-MAKE_FIGS.py is the executable script with which plots are produced. This reads in data stored in "data" directory. Users will need Python3 packages including netCDF4, scipy and MITgcmutils.
+MAKE_FIGS.py is the executable script with which plots are produced. This reads in data stored in "data" directory. Users will need Python3 packages including netCDF4, scipy and MITgcmutils. Within MAKE_FIGS.py, users can reproduce Figures 1-4 of the manuscript by setting the appropriate flag above each figure block (FIGURE1, FIGURE2, etc.) to "True". 
