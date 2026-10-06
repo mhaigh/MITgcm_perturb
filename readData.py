@@ -1,4 +1,4 @@
-# io.py
+# readData.py
 
 # For reading mitgcm outputs in either binary on netCDF format.
 # Reading of grid data is handled by grid.py
@@ -30,19 +30,13 @@ def readVar(VAR, path, time_step=1, var2D=False, meta=False, tt=None, xx=None, y
 	# Make sure we're in the run dir
 	path = f'{path}../run/'
 	fname = varDict[VAR]['fname']
-	fnames = [filename for filename in os.listdir(path) if filename.startswith(fname)]
-
-	if len(fnames) == 0:
-		print(f'Error readData.readVar: no numpy file found and')
-		print(f'{fname} not found in {path}')
-		quit()
-
+	fnames = [filename for filename in os.listdir(path) if filename.startswith(fname)]	
 	if fnames[0].endswith('.nc'):
 		file_format = 'nc'
 	else:
 		file_format = 'rdmds'
 	
-	return readVariable(VAR, path, file_format=file_format, time_step=1, var2D=var2D, meta=meta, tt=tt, xx=xx, yy=yy, zz=zz)
+	return readVariable(VAR, path, file_format=file_format, time_step=time_step, var2D=var2D, meta=meta, tt=tt, xx=xx, yy=yy, zz=zz)
 
 	# End
 
@@ -149,7 +143,7 @@ def readVariable(VAR, path, file_format='nc', time_step=1, var2D=False, meta=Fal
 	
 	elif file_format == 'nc':
 		from netCDF4 import Dataset
-
+		
 		if VAR.endswith('.nc'):
 			fname = VAR
 		else:
@@ -158,7 +152,7 @@ def readVariable(VAR, path, file_format='nc', time_step=1, var2D=False, meta=Fal
 		if meta:
 			return Dataset(path+fname, 'r')
 		else:
-			if fname in ['state2D.nc','stateExf.nc'] or var2D:
+			if fname == 'state2D.nc' or var2D:
 				return sq(Dataset(path+fname, 'r')[VAR][tt[0]:tt[1],yy[0]:yy[1],xx[0]:xx[1]])
 			else:
 				return sq(Dataset(path+fname, 'r')[VAR][tt[0]:tt[1],zz[0]:zz[1],yy[0]:yy[1],xx[0]:xx[1]])
@@ -167,7 +161,19 @@ def readVariable(VAR, path, file_format='nc', time_step=1, var2D=False, meta=Fal
 	else:
 		print('Error: readData.readVariable. file_format must be rdmds or nc')
 		sys.exit()
-	
+
+#== 
+
+def readMITgcmBinary(filepath, VAR):
+	'''Read MITgcm binary within specified filepath.'''
+
+	from MITgcmutils import rdmds
+	from MITgcmutils.mds import parsemeta
+
+	rec = parsemeta(f'{filepath}.meta')['fldList'].index(VAR)
+	data = rdmds(filepath, rec=rec)
+
+	return data
 
 # Could later implement xmitgcm compatibility...	
 #return open_mdsdataset(path, delta_t=60, read_grid=False)
